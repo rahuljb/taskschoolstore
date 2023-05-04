@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css " rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet"/>
+    <!-- slick slider -->
+
+    <link rel="stylesheet" href="{% static 'css/slick-theme.css'  %}"/>
+    <!-- font awesome style -->
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    <!-- responsive style -->
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet"/>
+    <script>
+    var subjectObject = {
+      "Msc": [
+        "Computer Science",
+        "Chemistry",
+        "Mathematics"
+      ],
+      "BTech": [
+        "Civil",
+        "Electronics",
+        "EEE"]
+
+    },
+    topicDefaultOption = new Option("Please select subject first", "");
+
+    window.onload = function() {
+      var subjectSel = document.getElementById("subject");
+      var topicSel = document.getElementById("topic");
+
+      for (var x in subjectObject) {
+        subjectSel.options[subjectSel.options.length] = new Option(x, x);
+      }
+      subjectSel.onchange = function() {
+        //empty Chapters- and Topics- dropdowns
+        topicSel.length = 0;
+        //chapterSel.length = 1; //not found :(
+
+
+        if(this.value === "") {
+          topicSel.options.add(topicDefaultOption);
+        } else {
+          //display correct values
+          for (var y in subjectObject[this.value]) {
+            topicSel.options.add(new Option(subjectObject[this.value][y], y));
+          }
+        }
+      }
+
+    }
+
+
+
+
+
+
+
+
+
+    </script>
+    <style>
+h2{
+padding: 12px 20px;
+}
+
+input[type=text], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=email], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=password], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+input[type=submit] {
+  width: 50%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+
+
+
+    </style>
+</head>
+<h2>FORM</h2>
+<body>
+<div class="container">
+    <form action="register" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name"><br>
+        <label for="dob">Date of birth</label><br>
+        <input type="date" id="dob" name="date_of_birth" placeholder="DOB"><br>
+        <input type="text" name="age" placeholder="Age"><br>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br>
+        <input type="text" name="telephone" placeholder="Mobile"><br>
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="address" placeholder="Address"><br><br>
+        <select id="subject" onchange="populateCourses()">
+            <option value="">Select a department</option>
+        </select><br>
+        <select id="topic">
+            <option value="">Select a course</option>
+        </select>
+
+        <select name="purpose" id="purpose">
+            <option value="">Select Your Purpose</option>
+            <option value="forenquiry">For Enquiry</option>
+            <option value="placeorder">Place Order</option>
+            <option value="return ++">Return</option>
+        </select><br>
+        <input type="checkbox" id="Materials1" name="DNB" value="debit Note Book">
+        <label for="Materials1"> Debit Note Book </label><br>
+        <input type="checkbox" id="Materials2" name="pen" value="pen">
+        <label for="Materials2"> Pen</label><br>
+        <input type="checkbox" id="Materials3" name="exampaper" value="exampaper">
+        <label for="Materials3"> Exam Peppers</label><br>
+        <a class="btn btn-success" href="success">Submit</a>
+        <a class="btn btn-primary" href="logout">Logout</a>
+</form>
+</div>
+{% for i in messages %}
+        <h2>{{i}}</h2>
+<div class="mx-auto">
+    <a href="{% url 'home' %}">Return to Home</a></div>
+{% endfor %}
+</div>
+</body>
+</html>

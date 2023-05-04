@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+.btn {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  font-size: 16px;
+  transition: 0.3s;
+   width:50em;
+text-align:center;
+}
+.btn:hover {
+  background-color: #3e8e41;
+  color: white;
+}
+.container{
+    width:100%;
+    align-items: center;
+  display: flex;
+  justify-content: center;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+<a class="btn" href="{% url 'form' %}">Click for more</a></div>
+</body>
+</html>
